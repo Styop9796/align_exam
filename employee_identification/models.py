@@ -11,6 +11,7 @@ class Employee(Base):
     age = Column(Integer)
     position = Column(String, nullable=False)
     remote = Column(Boolean,default=True)
+    #document_id = Column(String)
 
 """
 class Image(Base):
