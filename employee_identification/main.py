@@ -48,14 +48,6 @@ async def create_employee(
         raise HTTPException(status_code=500, detail="Failed to create employee")
 
 
-@app.get("/employees/{id}")
-async def get_employee_by_id(id: int, db: Session = Depends(get_db)):
-    db_employee = db.query(models.Employee).filter(models.Employee.id == id).first()
-    if db_employee is None:
-        raise HTTPException(status_code=404, detail="Employee not found")
-    return db_employee
-
-
 @app.get("/employees/list")
 async def get_employees_list(
     name: Optional[str] = Query(None),
@@ -72,3 +64,13 @@ async def get_employees_list(
         filters['remote'] = remote
     employees = db.query(models.Employee).filter_by(**filters).all()
     return employees
+
+
+@app.get("/employees/{id}")
+async def get_employee_by_id(id: int, db: Session = Depends(get_db)):
+    db_employee = db.query(models.Employee).filter(models.Employee.id == id).first()
+    if db_employee is None:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    return db_employee
+
+
