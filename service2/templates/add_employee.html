@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OCR Result</title>
+</head>
+<body>
+    <h1>Upload Document</h1>
+    <input id="uploadimage" type="file">
+    <button onclick="postImage()">Upload</button>
+    <p id="Showtext">{{ text }}</p>
+
+<script>
+    async function postImage(){
+        const image = document.getElementById('uploadimage')
+        if (!image.files[0]){
+            alert('No image')
+            return;
+        }
+        const file = image.files[0]
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try{
+            const response = await fetch(location.href , {
+                method : 'POST',
+                body : formData
+            });
+            const result = await response.json()
+            document.getElementById('Showtext').textContent=result.text ;
+        } catch (error ){
+            console.log(error)
+            alert('Failed')
+        }
+    }
+
+
+
+</script>
+</body>
+</html>
