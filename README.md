@@ -1,4 +1,4 @@
-# Employee identification and document character recogonition
+# Employee identification and document character recognition
 
 We need to create 2 separate services.
 
